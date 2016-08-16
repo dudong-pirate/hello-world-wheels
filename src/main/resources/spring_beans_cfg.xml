@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="Duke" class="com.springinaction.springidol.Juggler" scope="prototype">
+        <constructor-arg value="25"/>
+    </bean>
+    <bean id="sonnet29" class="com.springinaction.springidol.Sonnet29"/>
+    <bean id="poeticDuke" class="com.springinaction.springidol.PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg ref="sonnet29"/>
+    </bean>
+    <bean id="theStage" class="com.springinaction.springidol.Stage"
+          factory-method="getInstance"/>
+    <bean id="userService" class="com.dudong.service.UserService" scope="">
+        <property name="userDAO" ref="u"/>
+    </bean>
+    <bean id="kenny" class="com.springinaction.springidol.Instrumentalist">
+        <property name="song" value="Yesterday Once More"/>
+        <property name="instrument">
+            <bean class="com.springinaction.springidol.Piano"/>
+        </property>
+    </bean>
+
+    <bean id="piano" class="com.springinaction.springidol.Piano"/>
+    <bean id="auditorium" class="com.springinaction.springidol.Auditorium"
+          init-method="turnOnLights"
+          destroy-method="turnOffLights"/>
+</beans>

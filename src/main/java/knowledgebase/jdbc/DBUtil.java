@@ -1,9 +1,6 @@
 package knowledgebase.jdbc;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,11 +18,12 @@ public class DBUtil {
 
     static {
         Properties properties = new Properties();
-        Reader in;
+//        Reader in;
 
         try {
-            in = new FileReader("src/config.properties");
-            properties.load(in);
+            BufferedInputStream bin = (BufferedInputStream) ClassLoader.getSystemClassLoader()
+                    .getResourceAsStream("config.properties");
+            properties.load(bin);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
