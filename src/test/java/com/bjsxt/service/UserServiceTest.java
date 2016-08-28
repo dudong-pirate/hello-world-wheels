@@ -3,7 +3,6 @@ package com.bjsxt.service;
 import com.bjsxt.com.bjsxt.dao.UserDAO;
 import com.bjsxt.dao.impl.UserDAOImpl;
 import com.bjsxt.model.User;
-import org.jdom2.JDOMException;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,7 +23,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUserBy_SelfMadeSpring() throws JDOMException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
+    public void addUserBy_SelfMadeSpring() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         BeanFactory beanFactory = new ClassPathXmlApplicationContext("beans.xml");
         UserDAO userDAO = (UserDAO) beanFactory.getBean("u");
         UserService userService = new UserService();
@@ -34,7 +33,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUserBy_Spring() throws JDOMException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
+    public void addUserBy_Spring() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         BeanFactory beanFactory = new ClassPathXmlApplicationContext("beans.xml");
         UserService userService = (UserService) beanFactory.getBean("userService");
         User user = new User();
@@ -42,7 +41,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUserBy_Spring_Collections() throws JDOMException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
+    public void addUserBy_Spring_Collections() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         BeanFactory beanFactory = new ClassPathXmlApplicationContext("beans.xml");
         UserService userService = (UserService) beanFactory.getBean("userService");
         UserDAOImpl userDAO = (UserDAOImpl) beanFactory.getBean("u");

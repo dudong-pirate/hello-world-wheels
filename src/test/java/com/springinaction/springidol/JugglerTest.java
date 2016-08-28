@@ -48,9 +48,9 @@ public class JugglerTest {
     public void test_bean_scope() {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 ".\\spring_beans_cfg.xml");
-        Juggler performer1 = (Juggler) context.getBean("Duke");
-        performer1.setAge(88);
-        performer1.perform();
+//        Juggler performer1 = (Juggler) context.getBean("Duke");
+//        performer1.setAge(88);
+//        performer1.perform();
 
         Performer performer2 = (Performer) context.getBean("Duke");
         performer2.perform();
@@ -64,5 +64,21 @@ public class JugglerTest {
         performer.perform();
     }
 
+
+    @Test
+    public void testRefOtherBean() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                ".\\spring_beans_cfg.xml");
+        Performer performer = (Performer) context.getBean("kenny2");
+        performer.perform();
+    }
+
+    @Test
+    public void testSetCollections() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                ".\\spring_beans_cfg.xml");
+        Performer performer = (Performer) context.getBean("hank");
+        performer.perform();
+    }
 
 }

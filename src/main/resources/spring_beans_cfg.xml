@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
     <bean id="Duke" class="com.springinaction.springidol.Juggler" scope="prototype">
         <constructor-arg value="25"/>
@@ -14,18 +17,44 @@
     </bean>
     <bean id="theStage" class="com.springinaction.springidol.Stage"
           factory-method="getInstance"/>
-    <bean id="userService" class="com.dudong.service.UserService" scope="">
-        <property name="userDAO" ref="u"/>
-    </bean>
     <bean id="kenny" class="com.springinaction.springidol.Instrumentalist">
         <property name="song" value="Yesterday Once More"/>
         <property name="instrument">
             <bean class="com.springinaction.springidol.Piano"/>
         </property>
     </bean>
-
+    <bean id="kenny2"
+          class="com.springinaction.springidol.Instrumentalist"
+        autowire="byName">
+        <property name="song" value="Jingle Bells"/>
+        <!--<property name="instrument" ref="saxophone"/>-->
+    </bean>
     <bean id="piano" class="com.springinaction.springidol.Piano"/>
+    <bean id="guitar" class="com.springinaction.springidol.Guitar"/>
+    <bean id="instrument" class="com.springinaction.springidol.Saxophone"/>
     <bean id="auditorium" class="com.springinaction.springidol.Auditorium"
           init-method="turnOnLights"
           destroy-method="turnOffLights"/>
+    <bean id="hank"
+          class="com.springinaction.springidol.OneManBand">
+        <property name="instruments">
+                <list>
+                    <ref bean="piano"/>
+                    <!--<ref bean="saxophone"/>-->
+                    <ref bean="guitar"/>
+                </list>
+        </property>
+    </bean>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+    <bean id="audience" class="com.springinaction.springidol.Audience"/>
+    <aop:config>
+        <aop:aspect ref="audience">
+            <aop:before pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
+                        method="takeSeats"/>
+            <aop:before pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
+                        method="turnOffCellPhones"/>
+            <aop:after-returning pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
+                        method="applaud"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

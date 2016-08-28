@@ -12,7 +12,7 @@ public class Instrumentalist implements Performer {
 
     public void perform() {
         System.out.print("Playing " + song + " : ");
-        instrument.play();
+        instrument2.play();
     }
 
     public String getSong() {
@@ -23,10 +23,10 @@ public class Instrumentalist implements Performer {
         this.song = song;
     }// 注入歌曲
 
-    private Instrument instrument;
+    private Instrument instrument2;
 
     // 注入乐器
-    public void setInstrument(Instrument instrument) {
-        this.instrument = instrument;
+    public void setInstrument(Instrument instrument2) {
+        this.instrument2 = instrument2;
     }
 }
