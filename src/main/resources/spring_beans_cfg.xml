@@ -2,11 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-
     <bean id="Duke" class="com.springinaction.springidol.Juggler" scope="prototype">
         <constructor-arg value="25"/>
     </bean>
@@ -22,6 +24,10 @@
         <property name="instrument">
             <bean class="com.springinaction.springidol.Piano"/>
         </property>
+    </bean>
+    <context:annotation-config/>
+    <bean id="kenny3" class="com.springinaction.springidol.Instrumentalist">
+        <property name="song" value="Yesterday Once More"/>
     </bean>
     <bean id="kenny2"
           class="com.springinaction.springidol.Instrumentalist"
@@ -49,12 +55,9 @@
     <bean id="audience" class="com.springinaction.springidol.Audience"/>
     <aop:config>
         <aop:aspect ref="audience">
-            <aop:before pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
-                        method="takeSeats"/>
-            <aop:before pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
-                        method="turnOffCellPhones"/>
-            <aop:after-returning pointcut="execution(* com.springinaction.springidol.Performer.perform(..))"
-                        method="applaud"/>
+            <aop:pointcut id="performance2" expression="execution(* com.springinaction.springidol.Performer.perform(..))"/>
+            <aop:around pointcut-ref="performance2" method="watchPerformance"/>
+            <!--<aop:before pointcut="executi、>-->
         </aop:aspect>
     </aop:config>
 </beans>

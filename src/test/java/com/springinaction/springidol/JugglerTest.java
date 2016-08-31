@@ -64,6 +64,13 @@ public class JugglerTest {
         performer.perform();
     }
 
+    @Test
+    public void testUseAnnotationAutowired() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                ".\\spring_beans_cfg.xml");
+        Performer performer = (Performer) context.getBean("kenny3");
+        performer.perform();
+    }
 
     @Test
     public void testRefOtherBean() {

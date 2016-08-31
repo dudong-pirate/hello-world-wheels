@@ -1,5 +1,7 @@
 package com.springinaction.springidol;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * Created by Administrator on 2016/7/26.
  */
@@ -26,7 +28,13 @@ public class Instrumentalist implements Performer {
     private Instrument instrument2;
 
     // 注入乐器
+
     public void setInstrument(Instrument instrument2) {
         this.instrument2 = instrument2;
+    }
+
+    @Autowired
+    public void hereIsYourInstrument(Saxophone saxophone) {
+        this.instrument2 = saxophone;
     }
 }
